@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://ddream7.github.io/"/>
-  <updated>2020-03-10T04:27:47.068Z</updated>
+  <updated>2020-03-10T07:54:26.963Z</updated>
   <id>https://ddream7.github.io/</id>
   
   <author>
@@ -21,14 +21,13 @@
     <link href="https://ddream7.github.io/2020/03/10/PUBG%E5%90%AF%E5%8A%A8%E9%97%AE%E9%A2%98/"/>
     <id>https://ddream7.github.io/2020/03/10/PUBG%E5%90%AF%E5%8A%A8%E9%97%AE%E9%A2%98/</id>
     <published>2020-03-10T04:03:47.000Z</published>
-    <updated>2020-03-10T04:27:47.068Z</updated>
+    <updated>2020-03-10T07:54:26.963Z</updated>
     
-    <content type="html"><![CDATA[<p>##写在前面</p><p>其实我经常也玩一些游戏，LOL等等。</p><a id="more"></a><h1 id="PUBG启动时遇到的问题"><a href="#PUBG启动时遇到的问题" class="headerlink" title="PUBG启动时遇到的问题"></a>PUBG启动时遇到的问题</h1><p>今天，在同学们的鼓动下，心血来潮下载了吃鸡。但是启动时却出现了问题。</p><p>开始游戏后，弹出了<code>Battleeye Launcher</code>窗口。</p><p><img src="/2020/03/10/PUBG%E5%90%AF%E5%8A%A8%E9%97%AE%E9%A2%98/1.png" alt="1"></p><p>虽然这并不影响进入客户端，但是开启游戏后一直提示<code>连接超时</code>。</p><p>经过一番百度，找到了问题是缺失了一些文件。</p><p>解决办法是：在库中找到游戏，右击，点击属性，在本地文件中点击<code>验证游戏文件的完整性。</code></p><p><img src="/2020/03/10/PUBG%E5%90%AF%E5%8A%A8%E9%97%AE%E9%A2%98/2.png" alt="2"></p><p>等验证完毕后再进入游戏问题就解决。</p><hr><h3 id="写在后面"><a href="#写在后面" class="headerlink" title="写在后面"></a>写在后面</h3><p>最后，附上我的steam用户名:applepenlby</p>]]></content>
+    <content type="html"><![CDATA[<h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>其实我经常也玩一些游戏，LOL等等。</p><a id="more"></a><h1 id="PUBG启动时遇到的问题"><a href="#PUBG启动时遇到的问题" class="headerlink" title="PUBG启动时遇到的问题"></a>PUBG启动时遇到的问题</h1><p>今天，在同学们的鼓动下，心血来潮下载了吃鸡。但是启动时却出现了问题。</p><p>开始游戏后，弹出了<code>Battleeye Launcher</code>窗口。</p><p><img src="/2020/03/10/PUBG%E5%90%AF%E5%8A%A8%E9%97%AE%E9%A2%98/1.png" alt="1"></p><p>虽然这并不影响进入客户端，但是开启游戏后一直提示<code>连接超时</code>。</p><p>经过一番百度，找到了问题是缺失了一些文件。</p><p>解决办法是：在库中找到游戏，右击，点击属性，在本地文件中点击<code>验证游戏文件的完整性。</code></p><p><img src="/2020/03/10/PUBG%E5%90%AF%E5%8A%A8%E9%97%AE%E9%A2%98/2.png" alt="2"></p><p>等验证完毕后再进入游戏问题就解决。</p><hr><h3 id="写在后面"><a href="#写在后面" class="headerlink" title="写在后面"></a>写在后面</h3><p>最后，附上我的steam用户名:applepenlby</p>]]></content>
     
     <summary type="html">
     
-      &lt;p&gt;##写在前面&lt;/p&gt;
-&lt;p&gt;其实我经常也玩一些游戏，LOL等等。&lt;/p&gt;
+      &lt;h2 id=&quot;写在前面&quot;&gt;&lt;a href=&quot;#写在前面&quot; class=&quot;headerlink&quot; title=&quot;写在前面&quot;&gt;&lt;/a&gt;写在前面&lt;/h2&gt;&lt;p&gt;其实我经常也玩一些游戏，LOL等等。&lt;/p&gt;
     
     </summary>
     
