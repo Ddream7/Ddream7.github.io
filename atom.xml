@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://ddream7.github.io/"/>
-  <updated>2020-03-14T08:23:12.716Z</updated>
+  <updated>2020-03-16T14:55:29.850Z</updated>
   <id>https://ddream7.github.io/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>伪随机数之再学习</title>
+    <link href="https://ddream7.github.io/2020/03/16/%E4%BC%AA%E9%9A%8F%E6%9C%BA%E6%95%B0%E4%B9%8B%E5%86%8D%E5%AD%A6%E4%B9%A0/"/>
+    <id>https://ddream7.github.io/2020/03/16/%E4%BC%AA%E9%9A%8F%E6%9C%BA%E6%95%B0%E4%B9%8B%E5%86%8D%E5%AD%A6%E4%B9%A0/</id>
+    <published>2020-03-16T14:54:17.000Z</published>
+    <updated>2020-03-16T14:55:29.850Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h3><p>刚刚学习了伪随机数，正好四火师傅找了一道php伪随机数的题来练练手，解题后对伪随机数有了进一步的学习。</p><a id="more"></a><h1 id="伪随机数之再学习"><a href="#伪随机数之再学习" class="headerlink" title="伪随机数之再学习"></a>伪随机数之再学习</h1><h3 id="1、首先来解一道题目"><a href="#1、首先来解一道题目" class="headerlink" title="1、首先来解一道题目"></a>1、首先来解一道题目</h3><h4 id="枯燥的抽奖（题目地址：http-c8dcf522-27ac-4555-8a2d-4c198683e6d4-node3-buuoj-cn-）"><a href="#枯燥的抽奖（题目地址：http-c8dcf522-27ac-4555-8a2d-4c198683e6d4-node3-buuoj-cn-）" class="headerlink" title="枯燥的抽奖（题目地址：http://c8dcf522-27ac-4555-8a2d-4c198683e6d4.node3.buuoj.cn ）"></a>枯燥的抽奖（题目地址：<a href="http://c8dcf522-27ac-4555-8a2d-4c198683e6d4.node3.buuoj.cn" target="_blank" rel="noopener">http://c8dcf522-27ac-4555-8a2d-4c198683e6d4.node3.buuoj.cn</a> ）</h4><p>打开题目可以看到：</p><p><img src="/2020/03/16/%E4%BC%AA%E9%9A%8F%E6%9C%BA%E6%95%B0%E4%B9%8B%E5%86%8D%E5%AD%A6%E4%B9%A0/1.png" alt="1"></p><p>题目是猜字符串，当然是不可能才出来的。我们查看源码，发现了有用代码块：</p><p><img src="/2020/03/16/%E4%BC%AA%E9%9A%8F%E6%9C%BA%E6%95%B0%E4%B9%8B%E5%86%8D%E5%AD%A6%E4%B9%A0/2.png" alt="2"></p><p>这只是一个判断正误的代码，但是在第60行导入了<code>check.php</code>，我们查看这个文件。</p><p><img src="/2020/03/16/%E4%BC%AA%E9%9A%8F%E6%9C%BA%E6%95%B0%E4%B9%8B%E5%86%8D%E5%AD%A6%E4%B9%A0/3.png" alt="3"></p><p>这就是产生字符串的代码。</p><p>代码审计：</p><ul><li>开头从<code>(0,999999999)</code>中任取一个数用<code>mt_srand()函数</code>作为随机种子</li><li>然后定义了一个长字符串<code>$str_long1 = &quot;abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;</code></li><li>定义最后结果的长度为20，for循环来抽取20个字符</li><li>for循环内每次用<code>mt_rand()函数</code>从<code>$str_long1</code>中随机出开始抽取一个字符然后拼接起来。</li><li>最后<code>$str_show</code>只展示了10个数，也就是题目显示的前十个字符。</li></ul><p>既然是伪随机，如果<code>mt_srand()</code>使用的随机种子相同，那么之后生成的字符串一定是一样的。</p><p>目前，可以使用种子爆破工具<code>php_mt_seed</code>来获取，但是我们首先需要的到所需的参数。</p><p>我们用脚本反解，需要修改少量题目代码：</p><pre><code>str1 =  &apos;abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ&apos;   #待抽取字符串str2 = &apos;2wiBLXc8VJ&apos;     #生成的前十个字符str3 = str1[::-1]      #切片器length = len(str2)     #已生成的长度res = &apos;&apos;for i in range(len(str2)):  for j in range(len(str1)):     if str2[i] == str1[j]:            res += str(j) + &apos; &apos; + str(j) + &apos; &apos; + &apos;0&apos; + &apos; &apos; + str(len(str1) - 1) + &apos; &apos;   #逆向出参数          breakprint(res)</code></pre><p>运行结果:</p><p><img src="/2020/03/16/%E4%BC%AA%E9%9A%8F%E6%9C%BA%E6%95%B0%E4%B9%8B%E5%86%8D%E5%AD%A6%E4%B9%A0/4.png" alt="4"></p><p>然后我们将所得的结果用<code>php_mt_seed</code>爆破得到随机种子。</p><p><img src="/2020/03/16/%E4%BC%AA%E9%9A%8F%E6%9C%BA%E6%95%B0%E4%B9%8B%E5%86%8D%E5%AD%A6%E4%B9%A0/5.png" alt="5"></p><p>接下来我们只需要把随机种子带回到<code>check.php</code>中的<code>mt_srand()</code>函数中，然后其余不变，输出全部字符即可得到抽奖码，提交后得到flag。</p><p><img src="/2020/03/16/%E4%BC%AA%E9%9A%8F%E6%9C%BA%E6%95%B0%E4%B9%8B%E5%86%8D%E5%AD%A6%E4%B9%A0/6.png" alt="6"></p><p><img src="/2020/03/16/%E4%BC%AA%E9%9A%8F%E6%9C%BA%E6%95%B0%E4%B9%8B%E5%86%8D%E5%AD%A6%E4%B9%A0/7.png" alt="7"></p><h2 id="伪随机数再学习"><a href="#伪随机数再学习" class="headerlink" title="伪随机数再学习"></a>伪随机数再学习</h2><h4 id="php伪随机数漏洞"><a href="#php伪随机数漏洞" class="headerlink" title="php伪随机数漏洞"></a>php伪随机数漏洞</h4><h5 id="1、php伪随机数的两个函数"><a href="#1、php伪随机数的两个函数" class="headerlink" title="1、php伪随机数的两个函数"></a>1、php伪随机数的两个函数</h5><pre><code>mt_srand(seed); 函数播种 Mersenne Twister 随机数生成器。参数：seed 可选，规定播种值。mt_rand();函数使用 Mersenne Twister 算法生成随机整数。参数：min    可选。规定返回的最小数。默认是 0。max    可选。规定返回的最大数。默认是 mt_getrandmax()。</code></pre><p>我们来写一段代码：</p><pre><code>&lt;?phpmt_srand(12345);echo mt_rand().&quot;&lt;br/&gt;&quot;;?&gt;</code></pre><p>输出：<code>1996335345</code></p><p>改写代码为：</p><pre><code>&lt;?phpmt_srand(12345);echo mt_rand().&quot;&lt;br/&gt;&quot;;echo mt_rand().&quot;&lt;br/&gt;&quot;;echo mt_rand().&quot;&lt;br/&gt;&quot;;echo mt_rand().&quot;&lt;br/&gt;&quot;;echo mt_rand().&quot;&lt;br/&gt;&quot;;echo mt_rand().&quot;&lt;br/&gt;&quot;;?&gt;</code></pre><p>输出结果：</p><pre><code>1996335345191159269067941134228069177639496264285382868</code></pre><p>注意到，第一个结果与第一次的结果相同。如果结论还不够明显的话。</p><p>我们再次修改代码：</p><pre><code>&lt;?phpmt_srand(12345);echo mt_rand().&quot;&lt;br/&gt;&quot;;mt_srand(12345);echo mt_rand().&quot;&lt;br/&gt;&quot;;mt_srand(12345);echo mt_rand().&quot;&lt;br/&gt;&quot;;echo mt_rand().&quot;&lt;br/&gt;&quot;;echo mt_rand().&quot;&lt;br/&gt;&quot;;echo mt_rand().&quot;&lt;br/&gt;&quot;;?&gt;</code></pre><p>输出结果：</p><pre><code>1996335345199633534519963353451911592690679411342280691776</code></pre><p>结论显而易见了，当随机种子确定时，生成的伪随机数就会确定。</p><p>其实，这就是伪随机数的漏洞，存在可预测性。</p><p>生成伪随机数是线性的，你可以理解为y=ax,x就是种子，知道种子和一组伪随机数不是就可以推y(伪随机数了吗),当然实际上更复杂肯定。</p><p>即：</p><pre><code>我知道种子后，可以确定你输出伪随机数的序列。知道你的随机数序列，可以确定你的种子。</code></pre><p>对于种子爆破就可以使用<code>php_mt_seed</code>，已经写好了，可以直接使用。  </p><h4 id="相关连接："><a href="#相关连接：" class="headerlink" title="相关连接："></a>相关连接：</h4><p><a href="https://www.openwall.com/php_mt_seed/" target="_blank" rel="noopener">php_mt_seed种子爆破安装</a><br><a href="https://www.openwall.com/php_mt_seed/README" target="_blank" rel="noopener">php_mt_seed种子爆破使用</a></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;写在前面&quot;&gt;&lt;a href=&quot;#写在前面&quot; class=&quot;headerlink&quot; title=&quot;写在前面&quot;&gt;&lt;/a&gt;写在前面&lt;/h3&gt;&lt;p&gt;刚刚学习了伪随机数，正好四火师傅找了一道php伪随机数的题来练练手，解题后对伪随机数有了进一步的学习。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="CTF" scheme="https://Ddream7.github.io/categories/CTF/"/>
+    
+      <category term="Web" scheme="https://Ddream7.github.io/categories/CTF/Web/"/>
+    
+    
+      <category term="密码学" scheme="https://Ddream7.github.io/tags/%E5%AF%86%E7%A0%81%E5%AD%A6/"/>
+    
+      <category term="伪随机数" scheme="https://Ddream7.github.io/tags/%E4%BC%AA%E9%9A%8F%E6%9C%BA%E6%95%B0/"/>
+    
+  </entry>
   
   <entry>
     <title>伪随机数之初学习</title>
