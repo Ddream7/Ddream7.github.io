@@ -26,7 +26,6 @@
 <p>我们用脚本反解，需要修改少量题目代码：</p>
 <pre><code>str1 =  &apos;abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ&apos;   #待抽取字符串
 str2 = &apos;2wiBLXc8VJ&apos;     #生成的前十个字符
-str3 = str1[::-1]      #切片器
 length = len(str2)     #已生成的长度
 res = &apos;&apos;
 for i in range(len(str2)):
